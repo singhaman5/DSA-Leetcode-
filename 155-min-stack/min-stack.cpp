@@ -1,36 +1,39 @@
 class MinStack {
 public:
-    // Method - 2: Optimised but not the best one..
-    vector<int> v;
+    // Method - 3: Best solution for this question -> T.C = O(1), S.C. = O(1);
+    stack<long long> st;
+    long long min;
     MinStack() {
-        
+        min = LLONG_MAX;
     }
     
     void push(int val) { // O(1)
-        v.push_back(val);
+        long long x = (long long)val;
+        if(st.size()==0){
+            st.push(x);
+            min = x;
+        }
+        else if(x>=min) st.push(x);
+        else{ // val < min
+            st.push(2*x-min);
+            min = x;
+        }
     }
     
     void pop() { // O(1)
-        v.pop_back();
+        if(st.top() < min){ // st.top<min : A fake value is present;
+                // before popping, make sure to retrieve the old min;
+            long long oldMin = 2 * min -st.top();
+            min = oldMin;
+        }
+        st.pop();
     }
     int top() { // O(1)
-        return v[v.size()-1];  
+        if(st.top() < min) return min;
+        else return st.top();
     }
     
     int getMin() { // O(1)
-        int mn = v[0];
-        for(int i=1;i<v.size();i++){
-            mn = min(mn,v[i]);
-        }
-        return mn;
+        return min;
     }
 };
-
-/**
- * Your MinStack object will be instantiated and called as such:
- * MinStack* obj = new MinStack();
- * obj->push(val);
- * obj->pop();
- * int param_3 = obj->top();
- * int param_4 = obj->getMin();
- */
