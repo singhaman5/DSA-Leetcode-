@@ -1,16 +1,17 @@
 class Solution {
 public:
-    int maxDia = 0;
-    int levels(TreeNode* root){
+    int find(TreeNode* root,int &dia){
         if(root==NULL) return 0;
-        return 1 + max(levels(root->left), levels(root->right));
+        int l=find(root->left,dia);
+        int r=find(root->right,dia);
+        dia=max(dia,l+r);
+        return max(l,r)+1;
+
+
     }
     int diameterOfBinaryTree(TreeNode* root) {
-        if(root == NULL) return 0;
-        int dia = levels(root->left) + levels(root->right);
-        maxDia = max(maxDia, dia);
-        diameterOfBinaryTree(root->left);
-        diameterOfBinaryTree(root->right);
-        return maxDia;
+        int dia=0;
+        find(root,dia);
+        return dia;
     }
 };
