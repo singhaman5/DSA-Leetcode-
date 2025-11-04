@@ -1,7 +1,7 @@
 class Solution {
 public:
     TreeNode* build(vector<int>& pre,int preLo,int preHi, vector<int>& in, int inLo,int inHi){
-        if(preLo > preHi) return 0;
+        if(preLo > preHi) return NULL;
         TreeNode* root = new TreeNode(pre[preLo]);
         if(preLo==preHi) return root;
         int i = inLo;
