@@ -3,16 +3,16 @@ public:
     int lengthOfLIS(vector<int>& arr) {
         // TABULATION -> 
         int n = arr.size();
-        vector<vector<int>> dp(n+1, vector<int>(n+1,0));
-        for(int ind = n-1;ind>=0;ind--){
-            for(int prev_ind = ind-1;prev_ind>=-1;prev_ind--){
-                int len = 0 + dp[ind+1][prev_ind+1];
-                if(prev_ind == -1 || arr[ind] > arr[prev_ind]){
-                    len = max(len, 1 + dp[ind+1][ind+1]);
+        vector<int> dp(n,1);
+        int maxi = 1;
+        for(int i=0;i<n;i++){
+            for(int prev = 0; prev <i;prev++){
+                if(arr[prev] < arr[i]){
+                    dp[i] = max(dp[i], 1 + dp[prev]);
                 }
-                dp[ind][prev_ind+1] = len;
             }
+            maxi = max(maxi, dp[i]);
         }
-        return dp[0][0];
+        return maxi;
     }
 };
