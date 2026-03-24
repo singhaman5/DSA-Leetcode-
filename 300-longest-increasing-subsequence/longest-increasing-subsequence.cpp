@@ -1,18 +1,20 @@
 class Solution {
 public:
     int lengthOfLIS(vector<int>& arr) {
-        // TABULATION -> 
+        // Binary Search on LIS ->. O(n logn)
         int n = arr.size();
-        vector<int> dp(n,1);
-        int maxi = 1;
-        for(int i=0;i<n;i++){
-            for(int prev = 0; prev <i;prev++){
-                if(arr[prev] < arr[i]){
-                    dp[i] = max(dp[i], 1 + dp[prev]);
-                }
+        vector<int> temp;
+        temp.push_back(arr[0]);
+        for(int i = 1; i < n; i++){  
+            if(arr[i] > temp.back()){
+                temp.push_back(arr[i]);
             }
-            maxi = max(maxi, dp[i]);
+            else{
+                auto it = lower_bound(temp.begin(), temp.end(), arr[i]); 
+                int ind = it - temp.begin();                              
+                temp[ind] = arr[i];
+            }
         }
-        return maxi;
+        return temp.size();
     }
 };
