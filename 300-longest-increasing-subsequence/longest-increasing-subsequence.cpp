@@ -4,10 +4,12 @@ public:
         // Binary Search on LIS ->. O(n logn)
         int n = arr.size();
         vector<int> temp;
+        int len = 1;
         temp.push_back(arr[0]);
         for(int i = 1; i < n; i++){  
             if(arr[i] > temp.back()){
                 temp.push_back(arr[i]);
+                len++;
             }
             else{
                 auto it = lower_bound(temp.begin(), temp.end(), arr[i]); 
@@ -15,6 +17,6 @@ public:
                 temp[ind] = arr[i];
             }
         }
-        return temp.size();
+        return len;
     }
 };
