@@ -1,19 +1,18 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& arr) {
+        // Most Optimal Solution
         int n = arr.size();
         sort(arr.begin(), arr.end());
-        vector<vector<int>> merged;
-        vector<int> prev = arr[0];
-        for (int i=1; i<n; i++) {
-            if (arr[i][0] <= prev[1]) {
-                prev[1] = max(prev[1], arr[i][1]);
-            } else {
-                merged.push_back(prev);
-                prev = arr[i];
+        vector<vector<int>> ans;
+        for(int i=0;i<n;i++){
+            if(ans.empty() || arr[i][0] > ans.back()[1]){
+                ans.push_back(arr[i]);
+            }
+            else{
+                ans.back()[1] = max(ans.back()[1], arr[i][1]);
             }
         }
-        merged.push_back(prev);
-        return merged;
+        return ans;
     }
 };
