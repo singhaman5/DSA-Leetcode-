@@ -10,6 +10,7 @@ public:
             if(mpp[nums[i]] == mini){
                 ls.push_back(nums[i]);
             }
+            if(ls.size() == 2) break;
         }
         sort(ls.begin(),ls.end());
         return ls;
