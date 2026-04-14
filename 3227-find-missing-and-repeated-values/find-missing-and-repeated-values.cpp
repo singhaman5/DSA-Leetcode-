@@ -1,21 +1,18 @@
 class Solution {
 public:
     vector<int> findMissingAndRepeatedValues(vector<vector<int>>& arr) {
-        // Brute Force
+        // Optimal
         int n = arr.size();
+        vector<int> hash(n*n + 1, 0);
         int repeating = -1, missing = -1;
-        for(int num = 1; num <= n*n; num++){
-            int count = 0;
-            for(int i=0; i<n; i++){
-                for(int j=0; j<n; j++){
-                    if(arr[i][j] == num){
-                        count++;
-                    }
-                }
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                hash[arr[i][j]]++;
             }
-            if(count == 2) repeating = num;
-            else if(count == 0) missing = num;
-
+        }
+        for(int i = 1; i <= n*n; i++){
+            if(hash[i] == 2) repeating = i;
+            else if(hash[i] == 0) missing = i;
             if(repeating != -1 && missing != -1){
                 break;
             }
