@@ -7,7 +7,6 @@ public:
             {']', '['}
         };
         stack<char> st;
-
         for (char c : s) {
             if (map.count(c)) {
                 if (st.empty() || st.top() != map[c]) {
