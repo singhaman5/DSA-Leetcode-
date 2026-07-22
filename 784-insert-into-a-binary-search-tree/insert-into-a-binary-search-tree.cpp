@@ -2,19 +2,19 @@ class Solution {
 public:
     TreeNode* insertIntoBST(TreeNode* root, int val) {
         if(root==NULL) return new TreeNode(val);
-        if(root->val > val){ // go left
-            if(root->left==NULL){ // Attach it here
+        if(root->val > val){ // Go left
+            if(root->left == NULL){
                 TreeNode* temp = new TreeNode(val);
                 root->left = temp;
             }
-            else insertIntoBST(root->left,val);
+            else insertIntoBST(root->left, val);
         }
-        else{ // root->val < val // go right
-            if(root->right==NULL){ // Attach it here
+        else{ // Go right
+            if(root->right==NULL){
                 TreeNode* temp = new TreeNode(val);
                 root->right = temp;
             }
-            else insertIntoBST(root->right,val);
+            else insertIntoBST(root->right, val);
         }
         return root;
     }
